@@ -1,0 +1,28 @@
+import java.net.*;
+import java.util.*;
+import java.io.*;
+import java.lang.Math.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+
+import javax.imageio.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+
+public class gunsButtonPanel extends JPanel
+{
+	public void decoratePanel()
+	{
+
+	}
+
+	public gunsButtonPanel()
+	{
+	setOpaque(false);
+		setPreferredSize(new Dimension(100,50));
+		setBounds(20, 60, 80, 40);
+		//decoratePanel();
+	}
+}

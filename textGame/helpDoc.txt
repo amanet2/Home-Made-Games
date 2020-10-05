@@ -1,0 +1,9 @@
+-------------------------------	
+	Help Document
+-------------------------------
+Commands:
+----------
+	*go <north/south/east/west>
+	*look <north/south/east/west>
+	*quit/q
+	*restart

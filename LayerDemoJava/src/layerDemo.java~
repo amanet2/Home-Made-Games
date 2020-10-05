@@ -1,0 +1,109 @@
+
+import java.net.*;
+import java.util.*;
+import java.io.*;
+import java.lang.Math.*;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+
+public class layerDemo extends Thread 
+{
+	JFrame theFrame;	//the big frame for everything
+	
+
+	
+	JLayeredPane mainPane;	//main menu
+	JLayeredPane planesPane;	//select a plane menu
+	
+	JButton planesButton;	//button to take you to plane menu
+	JButton backToMainMenuButton;	//button to take you to main menu
+	
+	public layerDemo()
+	{
+		theFrame = new JFrame("Test");
+		theFrame.setLayout(new BorderLayout());
+		theFrame.setPreferredSize(new Dimension(1024,768));
+		
+		mainPane = new mainMenu();
+		mainPane.setBounds(0, 0, 1024, 768);
+		
+		planesPane = new planesMenu();
+		planesPane.setBounds(0,0,1024,768);
+	}
+	
+	public class MouseClickHandler extends MouseAdapter implements ActionListener 	//handle button presses
+	{
+		public void actionPerformed (ActionEvent e) 
+		{
+						
+			if(e.getSource() == planesButton)	//if we want to quit
+			{
+				changeDisplay(planesPane);
+			}
+			if(e.getSource() == backToMainMenuButton)
+			{
+				changeDisplay(mainPane);
+			}
+		}
+	}
+	
+	public void decorateFrame()
+	{
+
+		/*create the panels and buttons for the elements
+		 that need to be accessed in this class*/
+		JPanel planesButtonPanel = new planesButtonPanel();
+		JPanel backButtonPanel = new backButtonPanel();
+		
+		planesButton = new JButton("Planes");
+			planesButton.addActionListener(new MouseClickHandler());
+		planesButtonPanel.add(planesButton);
+		
+		backToMainMenuButton = new JButton("Back");
+			backToMainMenuButton.addActionListener(new MouseClickHandler());
+		backButtonPanel.add(backToMainMenuButton);
+		
+		//add them to the respectuve pages
+		mainPane.add(planesButtonPanel, new Integer(3), 0);
+		
+		planesPane.add(backButtonPanel, new Integer(2), 0);
+
+		//start out with our main menu
+		theFrame.add(mainPane, BorderLayout.CENTER);
+	}
+	
+	public void changeDisplay(JLayeredPane newPane)
+	{		
+		theFrame.setContentPane(newPane);
+		theFrame.revalidate(); 
+	}
+	
+
+	
+	private void createGUI()
+	{	
+	
+		theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		decorateFrame();
+		
+		theFrame.pack();
+		theFrame.setVisible(true);
+	}
+	
+	public void run()
+	{
+		createGUI();
+		//changeDisplay(); //comment this in to change display, use this with actions to desired effect
+	}
+	
+	public static void main(String[] args)
+	{
+		layerDemo ld = new layerDemo();
+		ld.start();
+	}
+}

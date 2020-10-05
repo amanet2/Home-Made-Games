@@ -1,0 +1,4 @@
+path="C:\Program Files\Java\jdk1.8.0_45\bin"
+cd ..\src
+javac *.java
+java gameController 1280 720
